@@ -7,5 +7,5 @@ export const config = {
     url: 'https://xswdrzlnvxqzgqfrdhxs.supabase.co',
     publishableKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhzd2RyemxudnhxemdxZnJkaHhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0MjkwOTIsImV4cCI6MjA3NTAwNTA5Mn0.ecpaTpTD_2sKSE7WxzBnZ6UsXYqj0wuGcpsroYO6jsk',
   },
-  devAuth: false, // Set to true to enable dev-only bypass auth
+  devAuth: true, // Set to true to enable dev-only bypass auth - ENABLED FOR SCHEDULING
 };

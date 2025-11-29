@@ -1,9 +1,16 @@
 from fastapi import FastAPI, Response
+import os
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from backend.orchestrator.orchestrator import build_orchestrator_graph
 from backend.utils.pdf_generator import generate_pdf_from_analysis
+from backend.scheduling.endpoints import router as scheduling_router
+from backend.scheduling.demo_router import router as demo_router
+from backend.database.config import Base, engine
+
+# Create database tables
+Base.metadata.create_all(bind=engine)
 
 # -------------------------------
 # Initialize FastAPI and Orchestrator
@@ -19,6 +26,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add scheduling routes
+app.include_router(scheduling_router)
+
+# Demo mode: optional mocked scheduling for hackathon demos
+DEMO_MODE = os.getenv("DEMO_MODE", "0") in ("1", "true", "True")
+if DEMO_MODE:
+    app.include_router(demo_router)
 
 graph = build_orchestrator_graph()
 
